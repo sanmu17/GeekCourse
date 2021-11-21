@@ -1,4 +1,4 @@
-package com.geek.gateway.inbound;
+package com.geek.inbound;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;

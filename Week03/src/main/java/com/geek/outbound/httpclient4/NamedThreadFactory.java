@@ -1,4 +1,4 @@
-package com.geek.gateway.outbound.httpclient4;
+package com.geek.outbound.httpclient4;
 
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;

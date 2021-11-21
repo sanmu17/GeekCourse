@@ -1,11 +1,10 @@
-package com.geek.gateway.outbound.httpclient4;
+package com.geek.outbound.httpclient4;
 
 
-import com.geek.gateway.filter.HeaderHttpResponseFilter;
-import com.geek.gateway.filter.HttpRequestFilter;
-import com.geek.gateway.filter.HttpResponseFilter;
-import com.geek.gateway.router.HttpEndpointRouter;
-import com.geek.gateway.router.RandomHttpEndpointRouter;
+import com.geek.homework03.ProxyBizFilter;
+import com.geek.outbound.okhttp.OkhttpUtils;
+import com.geek.router.HttpEndpointRouter;
+import com.geek.router.RandomHttpEndpointRouter;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
@@ -22,7 +21,9 @@ import org.apache.http.impl.nio.reactor.IOReactorConfig;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
@@ -31,12 +32,13 @@ import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 public class HttpOutboundHandler {
-
+    
     private CloseableHttpAsyncClient httpclient;
     private ExecutorService proxyService;
     private List<String> backendUrls;
 
-    HttpResponseFilter filter = new HeaderHttpResponseFilter();
+//    HttpResponseFilter filter = new HeaderHttpResponseFilter();
+    ProxyBizFilter filter = new ProxyBizFilter();
     HttpEndpointRouter router = new RandomHttpEndpointRouter();
 
     public HttpOutboundHandler(List<String> backends) {
@@ -50,40 +52,44 @@ public class HttpOutboundHandler {
         proxyService = new ThreadPoolExecutor(cores, cores,
                 keepAliveTime, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(queueSize),
                 new NamedThreadFactory("proxyService"), handler);
-
+        
         IOReactorConfig ioConfig = IOReactorConfig.custom()
                 .setConnectTimeout(1000)
                 .setSoTimeout(1000)
                 .setIoThreadCount(cores)
                 .setRcvBufSize(32 * 1024)
                 .build();
-
+        
         httpclient = HttpAsyncClients.custom().setMaxConnTotal(40)
                 .setMaxConnPerRoute(8)
                 .setDefaultIOReactorConfig(ioConfig)
-                .setKeepAliveStrategy((response, context) -> 6000)
+                .setKeepAliveStrategy((response,context) -> 6000)
                 .build();
         httpclient.start();
     }
 
     private String formatUrl(String backend) {
-        return backend.endsWith("/") ? backend.substring(0, backend.length() - 1) : backend;
+        return backend.endsWith("/")?backend.substring(0,backend.length()-1):backend;
     }
-
-    public void handle(final FullHttpRequest fullRequest, final ChannelHandlerContext ctx, HttpRequestFilter filter) {
-        String backendUrl = router.route(this.backendUrls);
-        final String url = backendUrl + fullRequest.uri();
-        System.out.println("请求的url：" + url);
+    
+    public void handle(final FullHttpRequest fullRequest, final ChannelHandlerContext ctx, ProxyBizFilter filter) {
+//        String backendUrl = router.route(this.backendUrls);
+//        String backendUrl = "";
+        final String url = this.backendUrls.get(0) + fullRequest.uri();
         filter.filter(fullRequest, ctx);
-        proxyService.submit(() -> fetchGet(fullRequest, ctx, url));
+        proxyService.submit(()->fetchGet(fullRequest, ctx, url));
     }
-
+    
     private void fetchGet(final FullHttpRequest inbound, final ChannelHandlerContext ctx, final String url) {
         final HttpGet httpGet = new HttpGet(url);
         //httpGet.setHeader(HTTP.CONN_DIRECTIVE, HTTP.CONN_CLOSE);
         httpGet.setHeader(HTTP.CONN_DIRECTIVE, HTTP.CONN_KEEP_ALIVE);
-        httpGet.setHeader("mao", inbound.headers().get("mao"));
-
+        httpGet.setHeader("geek", inbound.headers().get("geek"));
+        try {
+            System.out.println("okhttp请求："+OkhttpUtils.getBody(url));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         httpclient.execute(httpGet, new FutureCallback<HttpResponse>() {
             @Override
             public void completed(final HttpResponse endpointResponse) {
@@ -108,7 +114,7 @@ public class HttpOutboundHandler {
             }
         });
     }
-
+    
     private void handleResponse(final FullHttpRequest fullRequest, final ChannelHandlerContext ctx, final HttpResponse endpointResponse) throws Exception {
         FullHttpResponse response = null;
         try {
@@ -117,23 +123,23 @@ public class HttpOutboundHandler {
 //            response.headers().set("Content-Type", "application/json");
 //            response.headers().setInt("Content-Length", response.content().readableBytes());
 
-
+    
             byte[] body = EntityUtils.toByteArray(endpointResponse.getEntity());
-//            System.out.println(new String(body));
-//            System.out.println(body.length);
+            System.out.println(new String(body));
+            System.out.println(body.length);
 
             response = new DefaultFullHttpResponse(HTTP_1_1, OK, Unpooled.wrappedBuffer(body));
 
             response.headers().set("Content-Type", "application/json");
-            response.headers().setInt("Content-Length", Integer.parseInt(endpointResponse.getFirstHeader("Content-Length").getValue()));
-
+            if(!Objects.isNull(endpointResponse.getFirstHeader("Content-Length")))
+                response.headers().setInt("Content-Length", Integer.parseInt(endpointResponse.getFirstHeader("Content-Length").getValue()));
             filter.filter(response);
 
 //            for (Header e : endpointResponse.getAllHeaders()) {
 //                //response.headers().set(e.getName(),e.getValue());
 //                System.out.println(e.getName() + " => " + e.getValue());
 //            } 
-
+        
         } catch (Exception e) {
             e.printStackTrace();
             response = new DefaultFullHttpResponse(HTTP_1_1, NO_CONTENT);
@@ -150,13 +156,13 @@ public class HttpOutboundHandler {
             ctx.flush();
             //ctx.close();
         }
-
+        
     }
-
+    
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         cause.printStackTrace();
         ctx.close();
     }
-
-
+    
+    
 }

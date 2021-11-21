@@ -1,4 +1,4 @@
-package com.geek.gateway.router;
+package com.geek.router;
 
 import java.util.List;
 

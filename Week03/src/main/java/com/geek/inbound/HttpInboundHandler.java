@@ -1,23 +1,26 @@
-package com.geek.gateway.inbound;
+package com.geek.inbound;
 
-import com.geek.gateway.filter.HeaderHttpRequestFilter;
-import com.geek.gateway.filter.HttpRequestFilter;
-import com.geek.gateway.outbound.httpclient4.HttpOutboundHandler;
+import com.geek.filter.HeaderHttpRequestFilter;
+import com.geek.filter.HttpRequestFilter;
+import com.geek.homework03.ProxyBizFilter;
+import com.geek.outbound.httpclient4.HttpOutboundHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.util.ReferenceCountUtil;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 public class HttpInboundHandler extends ChannelInboundHandlerAdapter {
 
-    private static Logger logger = (Logger) LoggerFactory.getLogger(HttpInboundHandler.class);
+    private static Logger logger = LoggerFactory.getLogger(HttpInboundHandler.class);
     private final List<String> proxyServer;
     private HttpOutboundHandler handler;
     private HttpRequestFilter filter = new HeaderHttpRequestFilter();
+    private ProxyBizFilter filter1 = new ProxyBizFilter();
+
     
     public HttpInboundHandler(List<String> proxyServer) {
         this.proxyServer = proxyServer;
@@ -40,7 +43,7 @@ public class HttpInboundHandler extends ChannelInboundHandlerAdapter {
 //                handlerTest(fullRequest, ctx);
 //            }
     
-            handler.handle(fullRequest, ctx, filter);
+            handler.handle(fullRequest, ctx, filter1);
     
         } catch(Exception e) {
             e.printStackTrace();

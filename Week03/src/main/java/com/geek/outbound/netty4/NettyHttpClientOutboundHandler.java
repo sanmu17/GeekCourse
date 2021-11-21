@@ -1,4 +1,4 @@
-package com.geek.gateway.outbound.netty4;
+package com.geek.outbound.netty4;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
