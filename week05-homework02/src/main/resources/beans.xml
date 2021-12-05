@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean name="stu1" class="com.geek.week05.bean.Student">
+        <property name="name" value="张三"/>
+        <property name="ID" value="2001"/>
+    </bean>
+    <bean name="stu2" class="com.geek.week05.bean.Student">
+        <property name="name" value="张三1"/>
+        <property name="ID" value="2001"/>
+    </bean>
+    <bean name="stu3" class="com.geek.week05.bean.Student">
+        <property name="name" value="张三11"/>
+        <property name="ID" value="2001"/>
+    </bean>
+
+    <bean name="klass1" class="com.geek.week05.bean.Klass">
+        <property name="klassName" value="class1"/>
+        <property name="students">
+            <list>
+                <ref bean="stu1"/>
+                <ref bean="stu2"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean name="klass2" class="com.geek.week05.bean.Klass">
+        <property name="klassName" value="class1"/>
+        <property name="students">
+            <list>
+                <ref bean="stu1"/>
+                <ref bean="stu3"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean name="school1" class="com.geek.week05.bean.School">
+        <property name="name" value="school1"/>
+        <property name="klass">
+            <list>
+                <ref bean="klass1"/>
+                <ref bean="klass2"/>
+            </list>
+        </property>
+    </bean>
+</beans>

@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.ky.pro.java.fx.spring.boot.starter.SchoolAutoConfiguration
