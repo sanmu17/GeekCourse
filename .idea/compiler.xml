@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="8" />
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Week02" />
+        <module name="Week03" />
+        <module name="Week04" />
+        <module name="week05-homework02" />
+        <module name="week05-homework08" />
+        <module name="week05-homework10" />
+        <module name="week07-homework09" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="8">
+      <module name="gateway" target="1.8" />
+      <module name="Homework02" target="1.8" />
+      <module name="homework09" target="1.8" />
+      <module name="q1" target="1.8" />
+      <module name="Q1" target="1.8" />
+      <module name="q3gateway" target="1.8" />
+      <module name="Week02" target="1.8" />
+      <module name="Week03" target="1.8" />
+      <module name="Week04" target="1.8" />
+      <module name="Week05" target="1.8" />
+      <module name="week05-homework02" target="1.8" />
+      <module name="week05-homework08" target="1.8" />
+      <module name="week05-homework10" target="1.8" />
+      <module name="week07-homework09" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="homework09" options="-parameters" />
+      <module name="week05-homework02" options="-parameters" />
+      <module name="week05-homework08" options="-parameters" />
+      <module name="week05-homework10" options="-parameters" />
+      <module name="week07-homework09" options="-parameters" />
+    </option>
   </component>
 </project>

@@ -3,6 +3,15 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Week01/Week01.iml" filepath="$PROJECT_DIR$/Week01/Week01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week02/Week02.iml" filepath="$PROJECT_DIR$/Week02/Week02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week03/Week03.iml" filepath="$PROJECT_DIR$/Week03/Week03.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week04/Week04.iml" filepath="$PROJECT_DIR$/Week04/Week04.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week06/Week06.iml" filepath="$PROJECT_DIR$/Week06/Week06.iml" />
+      <module fileurl="file://$PROJECT_DIR$/week05-homework02/week05-homework02.iml" filepath="$PROJECT_DIR$/week05-homework02/week05-homework02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/week05-homework08/week05-homework08.iml" filepath="$PROJECT_DIR$/week05-homework08/week05-homework08.iml" />
+      <module fileurl="file://$PROJECT_DIR$/week05-homework10/week05-homework10.iml" filepath="$PROJECT_DIR$/week05-homework10/week05-homework10.iml" />
+      <module fileurl="file://$PROJECT_DIR$/week07-h2/week07-h02.iml" filepath="$PROJECT_DIR$/week07-h2/week07-h02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/week07-homework09/week07-homework09.iml" filepath="$PROJECT_DIR$/week07-homework09/week07-homework09.iml" />
     </modules>
   </component>
 </project>

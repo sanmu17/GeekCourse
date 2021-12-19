@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8" addBOMForNewFiles="with NO BOM">
+    <file url="file://$PROJECT_DIR$/Week02" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Week03" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Week04" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/homework09" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/week05-homework02" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/week05-homework08" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/week05-homework10" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/week07-homework09" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

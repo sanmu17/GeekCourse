@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    master:
+      url: jdbc:mysql://127.0.0.1:3307/geektest
+      username: root
+      password: 123456
+    slave:
+      url: jdbc:mysql://127.0.0.1:3308/geektest
+      username: root
+      password: 123456
+
+mybatis:
+  mapper-locations: classpath*:mapper/*

@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/Week02/pom.xml" />
+        <option value="$PROJECT_DIR$/Week03/pom.xml" />
+        <option value="$PROJECT_DIR$/Week04/pom.xml" />
+        <option value="$PROJECT_DIR$/Homework02/pom.xml" />
+        <option value="$PROJECT_DIR$/week05/pom.xml" />
+        <option value="$PROJECT_DIR$/week05-homework08/pom.xml" />
+        <option value="$PROJECT_DIR$/week05-homework02/pom.xml" />
+        <option value="$PROJECT_DIR$/week05-homework10/pom.xml" />
+        <option value="$PROJECT_DIR$/week07-homework09/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/Homework2/Homework02/pom.xml" />
+        <option value="$PROJECT_DIR$/Week03/q1/pom.xml" />
+        <option value="$PROJECT_DIR$/Week03/q3-gateway/pom.xml" />
+      </set>
+    </option>
+  </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state>
@@ -14,7 +36,7 @@
       </profile-state>
     </entry>
   </component>
-  <component name="ProjectRootManager">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8 (2)" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
