@@ -22,7 +22,7 @@ public class Week08Homework06Application {
         cleanupData(dataSource);
         TransactionTypeHolder.set(TransactionType.XA);
         Connection conn = dataSource.getConnection();
-        String sql = "insert into t_order (user_id, order_no) VALUES (?, ?);";
+        String sql = "insert into t_order (user_id, order_no, deleted ) VALUES (?, ?, 0);";
 
         System.out.println("First XA Start insert data");
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
