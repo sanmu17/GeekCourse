@@ -1,0 +1,40 @@
+spring:
+  shardingsphere:
+    datasource:
+      names: ds0,ds1
+      ds0:
+#        pool-name: ds0-pool
+        url: jdbc:mysql://127.0.0.1:3307/geek_LibrariesAndTables01?serverTimezone=UTC&useSSL=false
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        username: root
+        password: 123456
+      ds1:
+#        pool-name: ds1-pool
+        url: jdbc:mysql://127.0.0.1:3307/geek_LibrariesAndTables02?serverTimezone=UTC&useSSL=false
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        username: root
+        password: 123456
+    sharding:
+      tables:
+        t_order:
+          actual-data-nodes: ds$->{0..1}.t_order$->{0..15}
+          database-strategy:
+            inline:
+              sharding-column: user_id
+              algorithm-expression: ds$->{user_id%2}
+          table-strategy:
+            inline:
+              sharding-column: order_no
+              algorithm-expression: t_order$->{order_no%16}
+      keyGenerators:
+        snowflake:
+          type: SNOWFLAKE
+          props:
+            worker-id: 123
+    props:
+      sql:
+        show: true
+mybatis:
+  mapper-locations: classpath*:mapper/*
